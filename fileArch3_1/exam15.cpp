@@ -6,6 +6,12 @@ class Polynomial {
     float coef[MAX_DEGREE];
 
 public:
+    Polynomial(int dgr = 0)
+    {
+        for(int i=0; i <= dgr; i++)
+            coef[i]=0;
+    }
+
     void read() {
         int i;
         printf("다항식 최고 차수를 입력하시오: ");
@@ -22,7 +28,7 @@ public:
         printf("\t%s", str);
         for(i = degree; i >= 0; i--)
         {
-            printf("%5.1f x^$d + ", coef[i], i);
+            printf("%5.1f x%d + ", coef[i], i);
         }
         printf("%4.1f\n", coef[0]);
     }
@@ -31,13 +37,13 @@ public:
         int i;
         if (a.degree > b.degree) {
             *this = a;
-            for(i = 0;i<= b.degree; i++)
+            for(i = 0;i <= b.degree; i++)
                 coef[i] += b.coef[i];           
         }
         else
         {
             *this = b;
-            for(i = 0;i<= a.degree; i++)
+            for(i = 0;i <= a.degree; i++)
                 coef[i] += a.coef[i];      
         }
     }
@@ -58,17 +64,25 @@ public:
     }
 
     void mult(Polynomial a, Polynomial b){
-        int i;
+        int i,j ;
+        int totalDegree;
+        this->degree = totalDegree = a.degree + b.degree;
         if (a.degree > b.degree) {
-            *this = a;
-            for(i = 0;i<= b.degree; i++)
-                coef[i] *= b.coef[i];           
+            for(i = a.degree; i >= 0 ; i--) {
+                for(j = b.degree; j >= 0 ; j--) {
+                    coef[totalDegree--] += (a.coef[i] * b.coef[j]);
+                }
+                totalDegree+=2;
+            }
         }
         else
         {
-            *this = b;
-            for(i = 0;i<= a.degree; i++)
-                coef[i] *= a.coef[i];      
+            for(i = b.degree; i >= 0 ; i--) {
+                for(j = a.degree; j >= 0 ; j--) {
+                    coef[totalDegree--] += (b.coef[i] * a.coef[j]);
+                }
+                totalDegree+=2;
+            }   
         }
     }
 
