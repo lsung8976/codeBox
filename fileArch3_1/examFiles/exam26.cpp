@@ -19,21 +19,21 @@ public:
         cout << endl;
     }
 
-    void insertNext(Node *n){
-        if(n != NULL){
-            n->link = link;
-            link = n;
+    void insertNext(Node *nextNode){
+        if(nextNode != NULL){
+            nextNode->link = link;
+            link = nextNode;
         }
     }
 
-    void insertFront(Node *n){
-        if(n != NULL){
-            n->link = link;
-            link = n;
+    void insertFront(Node *frontNode){
+        if(frontNode != NULL){
+            frontNode->link = link;
+            link = frontNode;
         }
     }
 
-    Node * removeNext()
+    Node* removeNext()
     {
         Node *p = link;
         if(link != NULL) link = link->link;
